@@ -10,7 +10,22 @@ class Operator:
         self.messageCost = messageCost 
         self.networkCharge = networkCharge 
         self.discountRate = discountRate 
+        self.customers = []   # список клієнтів цього оператора
 
+    def addCustomer(self, customer) -> None:
+        """Додати клієнта до списку цього оператора"""
+        self.customers.append(customer)
+
+    # --- окремі функції для знижок ---
+    def getDiscountForTalking(self, customer) -> float:
+        if customer.age < 18 or customer.age > 65:
+            return 1 - self.discountRate / 100.0
+        return 1.0
+
+    def getDiscountForMessage(self, customer, other) -> float:
+        if customer.operator.ID == other.operator.ID:
+            return 1 - self.discountRate / 100.0
+        return 1.0
     # Cost calculations
     def calculateTalkingCost(self, minute: int, customer) -> float:
         cost = minute * self.talkingCharge
