@@ -26,8 +26,9 @@ def main():
     c1.talk(10, c2)
     c1.message(5, c2)
     c2.connection(50)
+    c1.pay(5)
     c2.changeBillLimit(300)
-    c1.changeOperator(op2)
+    c1.changeOperator(op2)  # тепер Alice має двох операторів
 
     print("\n=== Final Bills ===")
     for c in customers:
@@ -35,9 +36,11 @@ def main():
 
     print("\n=== Operator Customers ===")
     for op in operators:
-        names = [c.name for c in op.customers]
-        print(f"Operator {op.ID}: {names}")
+        print(f"Operator {op.ID}: {op.getCustomers()}")
+
+    print("\n=== Customer Operators ===")
+    for c in customers:
+        print(f"{c.name}: {c.getOperators()}")
 
 if __name__ == "__main__":
     main()
-
